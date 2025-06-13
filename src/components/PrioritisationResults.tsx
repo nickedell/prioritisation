@@ -8,23 +8,7 @@ interface PrioritisationResultsProps {
 }
 
 const PrioritisationResults: React.FC<PrioritisationResultsProps> = ({ prioritisedDimensions, darkMode }) => {
-
-    const exportToCSV = () => {
-        const headers = ['Rank', 'TOM Dimension', 'Category', 'Sub Dimension', 'Maturity Score', 'Business Impact', 'Feasibility', 'Political Viability', 'Foundation Building', 'Base Score', 'Adjusted Score', 'Priority Tier', 'Filters Applied'];
-        const csvData = prioritisedDimensions.map((dim, index) => [
-            index + 1, dim.name, dim.category, dim.subDimension || '', dim.currentScore, dim.businessImpact,
-            dim.feasibility, dim.political, dim.foundation, dim.baseScore.toFixed(2), dim.adjustedScore.toFixed(2),
-            dim.tier, dim.filters.join('; ')
-        ]);
-        const csvContent = [headers, ...csvData].map(row => row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')).join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.setAttribute('download', 'tom-prioritisation-results.csv');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    // NOTE: The exportToCSV function has been moved to App.tsx
 
     const getTierColor = (tier: string) => {
         if (darkMode) {
@@ -60,9 +44,7 @@ const PrioritisationResults: React.FC<PrioritisationResultsProps> = ({ prioritis
         <>
             <div className="flex items-center justify-between mb-4">
                 <h2 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Prioritised Results</h2>
-                <button onClick={exportToCSV} className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${darkMode ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white border border-gray-600' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'}`}>
-                    <span className="text-sm font-medium">Export CSV</span>
-                </button>
+                {/* The Export button has been moved to the Header component */}
             </div>
             <div className={`max-h-[calc(100vh-12rem)] overflow-y-auto space-y-2 rounded-lg p-4 border ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}>
                 {prioritisedDimensions.map((dim, index) => (
