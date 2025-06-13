@@ -14,7 +14,7 @@ const defaultWeights: Weights = {
     political: 20,
     foundation: 15,
 };
- 
+
 const Configuration: React.FC<ConfigurationProps> = ({ weights, setWeights, darkMode }) => {
     const [showConfigure, setShowConfigure] = useState(false);
     const [showCriteriaDetails, setShowCriteriaDetails] = useState(false);
