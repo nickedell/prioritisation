@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TOMDimension } from '../types';
+import { TOMDimension } from '../types/index.ts';
 import { dimensionDescriptions } from '../constants/dimensions.ts';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 
@@ -10,10 +10,10 @@ interface DimensionTableProps {
 }
 
 const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateScore, darkMode }) => {
-    const [expandedCategories, setExpandedCategories] = useState<{[key: string]: boolean}>({
+    const [expandedCategories, setExpandedCategories] = useState<{ [key: string]: boolean }>({
         'STRATEGY': true, 'IMPLEMENTATION': true, 'SERVICE & VALUE DELIVERY': true
     });
-    const [expandedSubDimensions, setExpandedSubDimensions] = useState<{[key: string]: boolean}>({
+    const [expandedSubDimensions, setExpandedSubDimensions] = useState<{ [key: string]: boolean }>({
         'Governance': true, 'Processes': true, 'Data Culture': true
     });
     const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
@@ -60,17 +60,19 @@ const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateSc
         </tr>
     );
 
+    const headerClasses = `sticky top-0 z-10 border p-3 text-center ${darkMode ? 'bg-gray-800 border-gray-600 text-gray-200' : 'bg-gray-100 border-gray-300 text-gray-900'}`;
+
     return (
         <div className="overflow-x-auto">
             <table className={`w-full border-collapse border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
                 <thead>
-                    <tr className={darkMode ? 'bg-gray-800' : 'bg-gray-100'}>
-                        <th className={`border p-3 text-left ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>TOM Dimension</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Maturity Score</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Business Impact</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Feasibility</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Political Viability</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Foundation Building</th>
+                    <tr>
+                        <th className={`${headerClasses} text-left`}>TOM Dimension</th>
+                        <th className={headerClasses}>Maturity Score</th>
+                        <th className={headerClasses}>Business Impact</th>
+                        <th className={headerClasses}>Feasibility</th>
+                        <th className={headerClasses}>Political Viability</th>
+                        <th className={headerClasses}>Foundation Building</th>
                     </tr>
                 </thead>
                 <tbody className={darkMode ? 'bg-gray-800' : 'bg-white'}>
