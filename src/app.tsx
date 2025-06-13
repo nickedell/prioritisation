@@ -1,13 +1,13 @@
-// import React, { useState } from 'react'; // No longer needed, useState is imported directly
+// import React, { useState } from 'react'; // This line should be removed or commented out
 import { useState } from 'react';
-import { initialTomDimensions } from './constants/dimensions.ts'; // Note the .ts extension
-import { TOMDimension, Weights } from './types/index.ts';       // Note the .ts extension
-import { usePrioritisation } from './hooks/usePrioritisation.ts';   // Note the .ts extension
+import { initialTomDimensions } from './constants/dimensions.ts'; // Add .ts
+import { TOMDimension, Weights } from './types/index.ts';       // Add .ts
+import { usePrioritisation } from './hooks/usePrioritisation.ts';   // Add .ts
 
-import Header from './components/Header.tsx';                     // Note the .tsx extension
-import Configuration from './components/Configuration.tsx';       // Note the .tsx extension
-import DimensionTable from './components/DimensionTable.tsx';     // Note the .tsx extension
-import PrioritisationResults from './components/PrioritisationResults.tsx'; // Note the .tsx extension
+import Header from './components/Header.tsx';                     // Add .tsx
+import Configuration from './components/Configuration.tsx';       // Add .tsx
+import DimensionTable from './components/DimensionTable.tsx';     // Add .tsx
+import PrioritisationResults from './components/PrioritisationResults.tsx'; // Add .tsx
 
 const App = () => {
   const [tomDimensions, setTomDimensions] = useState<TOMDimension[]>(initialTomDimensions);
