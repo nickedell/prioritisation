@@ -33,7 +33,7 @@ const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateSc
     }, [tomDimensions]);
 
     const renderDimensionRow = (dim: TOMDimension, isSubItem = false) => (
-        <tr key={dim.id} className={`${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'} ${isSubItem ? (darkMode ? 'bg-gray-750' : 'bg-gray-50') : ''}`}>
+        <tr key={dim.id} className={`${isSubItem ? (darkMode ? 'bg-gray-750' : 'bg-gray-50') : ''}`}>
             {/* Dimension Name Cell */}
             <td className={`border ${darkMode ? 'border-gray-600' : 'border-gray-300'} p-3 ${isSubItem ? 'pl-8 text-sm' : 'font-medium'} ${darkMode ? (isSubItem ? 'text-gray-300' : 'text-gray-200') : (isSubItem ? 'text-gray-600' : 'text-gray-900')} relative`}>
                 {isSubItem && <span className={`mr-2 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>↳</span>}

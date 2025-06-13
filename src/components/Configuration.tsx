@@ -121,7 +121,7 @@ const Configuration: React.FC<ConfigurationProps> = ({ weights, setWeights, dark
                         </div>
                     </div>
                     
-                    <div className="flex items-center justify-center min-h-[220px]">
+                    <div className="flex items-center justify-center min-h-[210px]">
                         {chartType === 'pie' ? (
                             <svg width="200" height="200" viewBox="0 0 200 200" className="select-none">
                                 {getPieSegments().map(s => <g key={s.key}><path d={s.pathData} fill={s.color} stroke={darkMode ? "#374151" : "#d1d5db"} strokeWidth="2"/><text x={s.labelX} y={s.labelY} textAnchor="middle" dominantBaseline="middle" className="text-xs font-semibold pointer-events-none" fill={darkMode ? "#111827" : "#ffffff"}>{s.percentage}%</text></g>)}
