@@ -1,3 +1,4 @@
+// CORRECTED CODE
 import { useState } from 'react';
 import { initialTomDimensions } from './constants/dimensions.ts';
 import { TOMDimension, Weights } from './types/index.ts';
