@@ -32,7 +32,10 @@ const App = () => {
         );
     };
 
+<<<<<<< HEAD
+=======
     // MOVED FROM PrioritisationResults.tsx
+>>>>>>> parent of d7c6a65 (e)
     const handleExport = () => {
         const headers = ['Rank', 'TOM Dimension', 'Category', 'Sub Dimension', 'Maturity Score', 'Business Impact', 'Feasibility', 'Political Viability', 'Foundation Building', 'Base Score', 'Adjusted Score', 'Priority Tier', 'Filters Applied'];
         const csvData = prioritisedDimensions.map((dim, index) => [
@@ -50,7 +53,10 @@ const App = () => {
         document.body.removeChild(link);
     };
 
+<<<<<<< HEAD
+=======
     // NEW: Function to handle CSV import
+>>>>>>> parent of d7c6a65 (e)
     const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
@@ -58,15 +64,23 @@ const App = () => {
         const reader = new FileReader();
         reader.onload = (e) => {
             const text = e.target?.result as string;
+<<<<<<< HEAD
+            const rows = text.split('\n').slice(1); 
+=======
             const rows = text.split('\n').slice(1); // Skip header row
+>>>>>>> parent of d7c6a65 (e)
 
             const newDimensions = [...tomDimensions];
 
             rows.forEach(row => {
+<<<<<<< HEAD
+                const columns = row.trim().split(',');
+=======
                 // Basic CSV parsing, assumes no commas within quoted fields for simplicity
                 const columns = row.trim().split(',');
 
                 // Use the name from column 1 to find the dimension
+>>>>>>> parent of d7c6a65 (e)
                 const name = columns[1]?.replace(/"/g, '').trim();
                 const dimension = newDimensions.find(d => d.name === name);
 
@@ -83,7 +97,10 @@ const App = () => {
         };
         reader.readAsText(file);
         
+<<<<<<< HEAD
+=======
         // Reset file input to allow re-uploading the same file
+>>>>>>> parent of d7c6a65 (e)
         event.target.value = '';
     };
 
@@ -98,6 +115,9 @@ const App = () => {
                 />
                 <div className="mb-8">
                     <Configuration
+<<<<<<< HEAD
+                        weights={weights}
+=======
                         weights={weights}
                         setWeights={setWeights}
                         darkMode={darkMode}
@@ -127,3 +147,4 @@ const App = () => {
 };
 
 export default App;
+>>>>>>> parent of d7c6a65 (e)

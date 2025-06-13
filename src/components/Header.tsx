@@ -17,7 +17,6 @@ const Header: React.FC<HeaderProps> = ({ darkMode, setDarkMode, onExportClick, o
     return (
         <>
             <div className="flex justify-end items-center mb-4 space-x-4">
-                {/* NEW: Import and Export buttons */}
                 <div>
                     <input
                         type="file"
@@ -40,7 +39,6 @@ const Header: React.FC<HeaderProps> = ({ darkMode, setDarkMode, onExportClick, o
                     Export CSV
                 </button>
 
-                {/* Dark/Light Mode Toggle */}
                 <button
                     onClick={() => setDarkMode(!darkMode)}
                     className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${darkMode ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'}`}

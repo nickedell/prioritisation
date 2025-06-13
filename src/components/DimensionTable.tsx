@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { TOMDimension } from '../types';
+import { TOMDimension } from '../types/index.ts';
 import { dimensionDescriptions } from '../constants/dimensions.ts';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 
@@ -10,10 +10,10 @@ interface DimensionTableProps {
 }
 
 const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateScore, darkMode }) => {
-    const [expandedCategories, setExpandedCategories] = useState<{[key: string]: boolean}>({
+    const [expandedCategories, setExpandedCategories] = useState<{ [key: string]: boolean }>({
         'STRATEGY': true, 'IMPLEMENTATION': true, 'SERVICE & VALUE DELIVERY': true
     });
-    const [expandedSubDimensions, setExpandedSubDimensions] = useState<{[key: string]: boolean}>({
+    const [expandedSubDimensions, setExpandedSubDimensions] = useState<{ [key: string]: boolean }>({
         'Governance': true, 'Processes': true, 'Data Culture': true
     });
     const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
@@ -60,17 +60,70 @@ const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateSc
         </tr>
     );
 
+<<<<<<< HEAD
+    const headerClasses = `sticky top-[68px] z-10 border p-3 text-center ${darkMode ? 'bg-gray-800 border-gray-600 text-gray-200' : 'bg-gray-100 border-gray-300 text-gray-900'}`;
+=======
+    const headerClasses = `sticky top-0 z-10 border p-3 text-center ${darkMode ? 'bg-gray-800 border-gray-600 text-gray-200' : 'bg-gray-100 border-gray-300 text-gray-900'}`;
+>>>>>>> parent of d7c6a65 (e)
+
     return (
+<<<<<<< HEAD
+        <table className={`w-full border-collapse border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+<<<<<<< HEAD
+            <caption className={`sticky top-0 z-20 p-4 text-xl font-semibold text-left ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+                Input Scores
+            </caption>
+=======
+>>>>>>> parent of d7c6a65 (e)
+            <thead>
+                <tr>
+                    <th className={`${headerClasses} text-left`}>TOM Dimension</th>
+                    <th className={headerClasses}>Maturity Score</th>
+                    <th className={headerClasses}>Business Impact</th>
+                    <th className={headerClasses}>Feasibility</th>
+                    <th className={headerClasses}>Political Viability</th>
+                    <th className={headerClasses}>Foundation Building</th>
+                </tr>
+            </thead>
+            <tbody className={darkMode ? 'bg-gray-800' : 'bg-white'}>
+                {Object.entries(groupedDimensions).map(([category, subGroups]) => (
+                    <React.Fragment key={category}>
+                        <tr className={darkMode ? 'bg-gray-700' : 'bg-gray-200'}>
+                            <td colSpan={6} className={`border p-3 ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+                                <button onClick={() => toggleCategory(category)} className={`flex items-center font-bold text-lg w-full transition-colors ${darkMode ? 'text-gray-200 hover:text-white' : 'text-gray-800 hover:text-gray-900'}`}>
+                                    {expandedCategories[category] ? <ChevronDown className="w-5 h-5 mr-2" /> : <ChevronRight className="w-5 h-5 mr-2" />} {category}
+                                </button>
+                            </td>
+                        </tr>
+                        {expandedCategories[category] && Object.entries(subGroups).map(([subGroup, dimensions]) => (
+                            <React.Fragment key={subGroup}>
+                                {subGroup !== '_main' && (
+                                    <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
+                                        <td colSpan={6} className={`border p-2 pl-6 ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+                                            <button onClick={() => toggleSubDimension(subGroup)} className={`flex items-center font-semibold transition-colors ${darkMode ? 'text-gray-300 hover:text-gray-200' : 'text-gray-700 hover:text-gray-800'}`}>
+                                                {expandedSubDimensions[subGroup] ? <ChevronDown className="w-4 h-4 mr-2" /> : <ChevronRight className="w-4 h-4 mr-2" />} {subGroup}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )}
+                                {(subGroup === '_main' || expandedSubDimensions[subGroup]) && dimensions.map(dim => renderDimensionRow(dim, subGroup !== '_main'))}
+                            </React.Fragment>
+                        ))}
+                    </React.Fragment>
+                ))}
+            </tbody>
+        </table>
+=======
         <div className="overflow-x-auto">
             <table className={`w-full border-collapse border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
                 <thead>
-                    <tr className={darkMode ? 'bg-gray-800' : 'bg-gray-100'}>
-                        <th className={`border p-3 text-left ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>TOM Dimension</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Maturity Score</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Business Impact</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Feasibility</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Political Viability</th>
-                        <th className={`border p-3 text-center ${darkMode ? 'border-gray-600 text-gray-200' : 'border-gray-300 text-gray-900'}`}>Foundation Building</th>
+                    <tr>
+                        <th className={`${headerClasses} text-left`}>TOM Dimension</th>
+                        <th className={headerClasses}>Maturity Score</th>
+                        <th className={headerClasses}>Business Impact</th>
+                        <th className={headerClasses}>Feasibility</th>
+                        <th className={headerClasses}>Political Viability</th>
+                        <th className={headerClasses}>Foundation Building</th>
                     </tr>
                 </thead>
                 <tbody className={darkMode ? 'bg-gray-800' : 'bg-white'}>
@@ -102,6 +155,7 @@ const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateSc
                 </tbody>
             </table>
         </div>
+>>>>>>> parent of ee3ecf3 (Update DimensionTable.tsx)
     );
 };
 

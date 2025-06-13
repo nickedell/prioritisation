@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrioritisedDimension } from '../types';
+import { PrioritisedDimension } from '../types/index.ts';
 import { ArrowUp, Star, AlertTriangle, CheckCircle, TrendingUp } from 'lucide-react';
 
 interface PrioritisationResultsProps {
@@ -8,7 +8,6 @@ interface PrioritisationResultsProps {
 }
 
 const PrioritisationResults: React.FC<PrioritisationResultsProps> = ({ prioritisedDimensions, darkMode }) => {
-    // NOTE: The exportToCSV function has been moved to App.tsx
 
     const getTierColor = (tier: string) => {
         if (darkMode) {
@@ -44,7 +43,6 @@ const PrioritisationResults: React.FC<PrioritisationResultsProps> = ({ prioritis
         <>
             <div className="flex items-center justify-between mb-4">
                 <h2 className={`text-xl font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Prioritised Results</h2>
-                {/* The Export button has been moved to the Header component */}
             </div>
             <div className={`max-h-[calc(100vh-12rem)] overflow-y-auto space-y-2 rounded-lg p-4 border ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}>
                 {prioritisedDimensions.map((dim, index) => (
@@ -74,9 +72,8 @@ const PrioritisationResults: React.FC<PrioritisationResultsProps> = ({ prioritis
                     </div>
                 ))}
             </div>
-            {/* Filter Legend */}
             <div className={`mt-4 p-3 rounded-lg border ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-300'}`}>
-                <h3 className={`font-semibold mb-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Filter Legend</h3>
+                <h3 className={`font-semibold mb-2 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-800'}`}>Legend</h3>
                 <div className="space-y-1 text-xs text-gray-300">
                     <div className="flex items-center gap-2"><Star className="w-3 h-3 text-gray-500" /><span>Quick Win</span></div>
                     <div className="flex items-center gap-2"><CheckCircle className="w-3 h-3 text-gray-500" /><span>Reputation Recovery</span></div>
