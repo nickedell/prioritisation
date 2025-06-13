@@ -8,7 +8,7 @@ interface DimensionTableProps {
     updateScore: (id: number, field: keyof TOMDimension, value: string) => void;
     darkMode: boolean;
 }
-
+ 
 const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateScore, darkMode }) => {
     const [expandedCategories, setExpandedCategories] = useState<{ [key: string]: boolean }>({
         'STRATEGY': true, 'IMPLEMENTATION': true, 'SERVICE & VALUE DELIVERY': true
