@@ -164,7 +164,8 @@ const Configuration: React.FC<ConfigurationProps> = ({ weights, setWeights, dark
                             <div className="flex-1">
                                 <div className="space-y-1 text-xs">
                                     {item.scale.map(line => {
-                                        const [level, desc] = line.split(/:(.*)/s);
+                                        const [level, ...descParts] = line.split(':');
+                                        const desc = descParts.join(':');
                                         return <div key={level}><span className={`font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>{level}:</span> <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>{desc}</span></div>
                                     })}
                                 </div>
