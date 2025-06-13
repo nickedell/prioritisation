@@ -58,13 +58,21 @@ const DimensionTable: React.FC<DimensionTableProps> = ({ tomDimensions, updateSc
         </tr>
     );
 
+<<<<<<< HEAD
     const headerClasses = `sticky top-[68px] z-10 border p-3 text-center ${darkMode ? 'bg-gray-800 border-gray-600 text-gray-200' : 'bg-gray-100 border-gray-300 text-gray-900'}`;
+=======
+    const headerClasses = `sticky top-0 z-10 border p-3 text-center ${darkMode ? 'bg-gray-800 border-gray-600 text-gray-200' : 'bg-gray-100 border-gray-300 text-gray-900'}`;
+>>>>>>> parent of d7c6a65 (e)
 
+    // UPDATE: The wrapping div has been removed. The component now returns the table directly.
     return (
         <table className={`w-full border-collapse border ${darkMode ? 'border-gray-600' : 'border-gray-300'}`}>
+<<<<<<< HEAD
             <caption className={`sticky top-0 z-20 p-4 text-xl font-semibold text-left ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
                 Input Scores
             </caption>
+=======
+>>>>>>> parent of d7c6a65 (e)
             <thead>
                 <tr>
                     <th className={`${headerClasses} text-left`}>TOM Dimension</th>
