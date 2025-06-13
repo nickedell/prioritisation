@@ -9,7 +9,77 @@ import DimensionTable from './components/DimensionTable.tsx';
 import PrioritisationResults from './components/PrioritisationResults.tsx';
 
 const App = () => {
-    // ... (all existing logic remains the same) ...
+    const [tomDimensions, setTomDimensions] = useState<TOMDimension[]>(initialTomDimensions);
+    const [darkMode, setDarkMode] = useState(true);
+
+    const [weights, setWeights] = useState<Weights>({
+        businessImpact: 35,
+        feasibility: 30,
+        political: 20,
+        foundation: 15
+    });
+
+    const prioritisedDimensions = usePrioritisation(tomDimensions, weights);
+
+    const updateScore = (id: number, field: keyof TOMDimension, value: string | number) => {
+        setTomDimensions(prev =>
+            prev.map(dim =>
+                dim.id === id ? {
+                    ...dim,
+                    [field]: typeof value === 'string' ? (field === 'currentScore' ? parseFloat(value) : parseInt(value)) || 0 : value
+                } : dim
+            )
+        );
+    };
+
+    const handleExport = () => {
+        const headers = ['Rank', 'TOM Dimension', 'Category', 'Sub Dimension', 'Maturity Score', 'Business Impact', 'Feasibility', 'Political Viability', 'Foundation Building', 'Base Score', 'Adjusted Score', 'Priority Tier', 'Filters Applied'];
+        const csvData = prioritisedDimensions.map((dim, index) => [
+            index + 1, dim.name, dim.category, dim.subDimension || '', dim.currentScore, dim.businessImpact,
+            dim.feasibility, dim.political, dim.foundation, dim.baseScore.toFixed(2), dim.adjustedScore.toFixed(2),
+            dim.tier, dim.filters.join('; ')
+        ]);
+        const csvContent = [headers, ...csvData].map(row => row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute('download', 'tom-prioritisation-results.csv');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const text = e.target?.result as string;
+            const rows = text.split('\n').slice(1); 
+
+            const newDimensions = [...tomDimensions];
+
+            rows.forEach(row => {
+                const columns = row.trim().split(',');
+                const name = columns[1]?.replace(/"/g, '').trim();
+                const dimension = newDimensions.find(d => d.name === name);
+
+                if (dimension) {
+                    dimension.currentScore = parseFloat(columns[4]?.replace(/"/g, '')) || 0;
+                    dimension.businessImpact = parseInt(columns[5]?.replace(/"/g, '')) || 0;
+                    dimension.feasibility = parseInt(columns[6]?.replace(/"/g, '')) || 0;
+                    dimension.political = parseInt(columns[7]?.replace(/"/g, '')) || 0;
+                    dimension.foundation = parseInt(columns[8]?.replace(/"/g, '')) || 0;
+                }
+            });
+
+            setTomDimensions(newDimensions);
+        };
+        reader.readAsText(file);
+        
+        event.target.value = '';
+    };
 
     return (
         <div className={darkMode ? 'bg-gray-900' : 'bg-gray-50'}>
@@ -23,33 +93,3 @@ const App = () => {
                 <div className="mb-8">
                     <Configuration
                         weights={weights}
-                        setWeights={setWeights}
-                        darkMode={darkMode}
-                    />
-                </div>
-                <div className="flex flex-col lg:flex-row gap-6">
-                    <div className="flex-1">
-                        {/* UPDATE: The h2 title has been removed from here */}
-                        <div className="overflow-x-auto">
-                            <DimensionTable
-                                tomDimensions={tomDimensions}
-                                updateScore={updateScore}
-                                darkMode={darkMode}
-                            />
-                        </div>
-                    </div>
-                    <div className="w-full lg:w-96 flex-shrink-0">
-                        <div className="sticky top-6">
-                            <PrioritisationResults
-                                prioritisedDimensions={prioritisedDimensions}
-                                darkMode={darkMode}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-export default App;
